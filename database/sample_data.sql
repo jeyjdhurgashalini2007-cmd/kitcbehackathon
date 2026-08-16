@@ -66,4 +66,4 @@ INSERT INTO student_marks (id, student_id, subject_id, marks) VALUES
 
 -- S105
 (15, 'S105', 'SUB007', 44),
-(16, 'S105', 'SUB001', 48);
+(16, 'S105', 'SUB007', 48);

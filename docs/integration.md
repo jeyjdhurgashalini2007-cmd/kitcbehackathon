@@ -37,3 +37,35 @@ Database
 Backend
     ↓
 Admin Dashboard
+
+
+# Integration Documentation
+
+## AI Student Analysis
+
+The AI module is located inside:
+
+`ai-model/`
+
+The main function is:
+
+`analyze_student(student)`
+
+The backend should send one student's academic data to the AI module.
+
+### Input
+
+```json
+{
+  "student_id": "S101",
+  "attendance": 55,
+  "assignment_completion": 48,
+  "average_marks": 51,
+  "previous_average": 65,
+  "subjects": {
+    "Mathematics": 42,
+    "Physics": 61,
+    "Programming": 73,
+    "Chemistry": 47
+  }
+}

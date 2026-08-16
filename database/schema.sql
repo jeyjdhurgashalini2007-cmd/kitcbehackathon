@@ -38,7 +38,7 @@ CREATE TABLE subjects (
 
 -- Student subject marks
 CREATE TABLE student_marks (
-    id INTEGER PRIMARY KEY,
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
     student_id VARCHAR(50) NOT NULL,
     subject_id VARCHAR(50) NOT NULL,
     marks DECIMAL(5,2) NOT NULL,

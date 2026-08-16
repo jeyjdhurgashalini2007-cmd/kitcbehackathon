@@ -84,3 +84,34 @@ The AI returns performance analysis, risk prediction, weak subject identificatio
     "Schedule an academic intervention."
   ]
 }
+
+### Response
+
+The AI module returns the student's performance analysis, risk prediction, weakest subject, and personalized recommendations.
+
+```json
+{
+  "student_id": "S101",
+  "performance": {
+    "score": 52.8,
+    "level": "NEEDS_IMPROVEMENT",
+    "trend": "DECLINING"
+  },
+  "risk": {
+    "prediction": "AT_RISK",
+    "score": 82.4,
+    "level": "HIGH"
+  },
+  "weak_subject": {
+    "name": "Mathematics",
+    "score": 42
+  },
+  "recommendations": [
+    "Improve class attendance and attend upcoming sessions regularly.",
+    "Complete pending assignments and maintain regular submission.",
+    "Increase study time and practice more questions before exams.",
+    "Performance is declining. Review recent topics and seek teacher guidance.",
+    "Focus additional study time on Mathematics.",
+    "Schedule an academic intervention or teacher follow-up."
+  ]
+}
