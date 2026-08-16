@@ -20,47 +20,29 @@ function Sidebar() {
           🏠 Dashboard
         </Link>
 
-        <Link
-          to="/student/profile"
-          className="block px-4 py-3 rounded-lg hover:bg-gray-800"
-        >
+        <div className="px-4 py-3 text-gray-500 cursor-not-allowed">
           👤 Profile
-        </Link>
+        </div>
 
-        <Link
-          to="/student/attendance"
-          className="block px-4 py-3 rounded-lg hover:bg-gray-800"
-        >
+        <div className="px-4 py-3 text-gray-500 cursor-not-allowed">
           📅 Attendance
-        </Link>
+        </div>
 
-        <Link
-          to="/student/assignments"
-          className="block px-4 py-3 rounded-lg hover:bg-gray-800"
-        >
+        <div className="px-4 py-3 text-gray-500 cursor-not-allowed">
           📝 Assignments
-        </Link>
+        </div>
 
-        <Link
-          to="/student/grades"
-          className="block px-4 py-3 rounded-lg hover:bg-gray-800"
-        >
+        <div className="px-4 py-3 text-gray-500 cursor-not-allowed">
           📊 Grades
-        </Link>
+        </div>
 
-        <Link
-          to="/student/performance"
-          className="block px-4 py-3 rounded-lg hover:bg-gray-800"
-        >
+        <div className="px-4 py-3 text-gray-500 cursor-not-allowed">
           📈 Performance
-        </Link>
+        </div>
 
-        <Link
-          to="/student/recommendations"
-          className="block px-4 py-3 rounded-lg hover:bg-gray-800"
-        >
+        <div className="px-4 py-3 text-gray-500 cursor-not-allowed">
           💡 Recommendations
-        </Link>
+        </div>
       </nav>
 
       <div className="mt-10 border-t border-gray-700 pt-5">
