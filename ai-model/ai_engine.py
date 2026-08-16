@@ -6,7 +6,12 @@ from sklearn.linear_model import LogisticRegression
 # CONFIGURATION
 # ============================================================
 
-DATA_FILE = "sample_data.csv"
+import os
+
+DATA_FILE = os.path.join(
+    os.path.dirname(__file__),
+    "sample_data.csv"
+)
 
 # These are the fields used by the ML model for risk prediction.
 RISK_FEATURES = [
