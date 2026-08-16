@@ -1,23 +1,58 @@
+import sqlite3
+import os
 from fastapi import FastAPI
 from pydantic import BaseModel
 from typing import Dict
 
 
 app = FastAPI(title="KICET Hackathon Backend")
+def get_Connection():
+    database_path = os.path.join(
+        os.path.dirname(os.path.dirname(__file__)),
+        "database",
+        "ktcb.db"
+    )
 
+    return sqlite3.connect(database_path)
 
 # -----------------------------
 # Admin Dashboard
 # -----------------------------
 @app.get("/api/admin/dashboard")
 def get_admin_dashboard():
+
+    connection = get_Connection()
+    cursor = connection.cursor()
+
+    # Total students
+    cursor.execute("SELECT COUNT(*) FROM students")
+    total_students = cursor.fetchone()[0]
+
+    # Total teachers
+    cursor.execute("SELECT COUNT(*) FROM teachers")
+    total_teachers = cursor.fetchone()[0]
+
+    # Total courses
+    cursor.execute("SELECT COUNT(*) FROM courses")
+    total_courses = cursor.fetchone()[0]
+
+    # Average attendance
+    cursor.execute("SELECT AVG(attendance) FROM students")
+    average_attendance = cursor.fetchone()[0] or 0
+
+    # Average performance
+    cursor.execute("SELECT AVG(average_marks) FROM students")
+    average_performance = cursor.fetchone()[0] or 0
+
+    connection.close()
+
     return {
-        "total_students": 1200,
-        "total_teachers": 65,
-        "total_courses": 48,
-        "at_risk_students": 83,
-        "average_attendance": 78,
-        "average_performance": 71
+        "total_students": total_students,
+        "total_teachers": total_teachers,
+        "total_courses": total_courses,
+        "at_risk_students": 2,
+        "average_attendance": round(average_attendance, 2),
+        "average_performance": round(average_performance, 2)
     }
 
 
