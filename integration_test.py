@@ -26,17 +26,15 @@ DATABASE_PATH = os.path.join(
     "ktcb.db"
 )
 
-
-# ------------------------------------------------------------
-# Get one student and their subject marks
-# ------------------------------------------------------------
-
 connection = sqlite3.connect(DATABASE_PATH)
 connection.row_factory = sqlite3.Row
 
 cursor = connection.cursor()
 
-student_id = "S101"
+
+# ------------------------------------------------------------
+# Get all students
+# ------------------------------------------------------------
 
 cursor.execute("""
     SELECT
@@ -46,74 +44,78 @@ cursor.execute("""
         average_marks,
         previous_average
     FROM students
-    WHERE student_id = ?
-""", (student_id,))
+""")
 
-student = cursor.fetchone()
+students = cursor.fetchall()
 
-if student is None:
-    print("Student not found")
-    connection.close()
-    sys.exit(1)
+at_risk_count = 0
 
 
 # ------------------------------------------------------------
-# Get subject marks
+# Analyze every student
 # ------------------------------------------------------------
 
-cursor.execute("""
-    SELECT
-        subjects.subject_name,
-        student_marks.marks
-    FROM student_marks
-    JOIN subjects
-        ON student_marks.subject_id = subjects.subject_id
-    WHERE student_marks.student_id = ?
-""", (student_id,))
+for student in students:
 
-subject_rows = cursor.fetchall()
+    student_id = student["student_id"]
 
-subjects = {
-    row["subject_name"]: row["marks"]
-    for row in subject_rows
-}
+    cursor.execute("""
+        SELECT
+            subjects.subject_name,
+            student_marks.marks
+        FROM student_marks
+        JOIN subjects
+            ON student_marks.subject_id = subjects.subject_id
+        WHERE student_marks.student_id = ?
+    """, (student_id,))
+
+    subject_rows = cursor.fetchall()
+
+    subjects = {
+        row["subject_name"]: row["marks"]
+        for row in subject_rows
+    }
+
+    student_data = {
+        "student_id": student["student_id"],
+        "attendance": student["attendance"],
+        "assignment_completion": student["assignment_completion"],
+        "average_marks": student["average_marks"],
+        "previous_average": student["previous_average"],
+        "subjects": subjects
+    }
+
+    result = analyze_student(student_data)
+
+    if result["risk"]["prediction"] == "AT_RISK":
+        at_risk_count += 1
+
+    print("\n==========================================")
+    print("Student:", student_id)
+    print("==========================================")
+
+    print("Performance:", result["performance"])
+    print("Risk:", result["risk"])
+    print("Weak Subject:", result["weak_subject"])
+
+    print("Recommendations:")
+
+    for recommendation in result["recommendations"]:
+        print("-", recommendation)
 
 
 # ------------------------------------------------------------
-# Build AI input
-# ------------------------------------------------------------
-
-student_data = {
-    "student_id": student["student_id"],
-    "attendance": student["attendance"],
-    "assignment_completion": student["assignment_completion"],
-    "average_marks": student["average_marks"],
-    "previous_average": student["previous_average"],
-    "subjects": subjects
-}
-
-
-# ------------------------------------------------------------
-# Send database data to AI
-# ------------------------------------------------------------
-
-result = analyze_student(student_data)
-
-
-# ------------------------------------------------------------
-# Display result
+# Final summary
 # ------------------------------------------------------------
 
 print("\n==========================================")
-print("DATABASE → AI INTEGRATION TEST")
+print("ADMIN INTEGRATION SUMMARY")
 print("==========================================")
 
-print("\nStudent:")
-print(student_data)
+print("Total Students:", len(students))
+print("At-Risk Students:", at_risk_count)
 
-print("\nAI Result:")
-print(result)
+print("==========================================")
 
-print("\n==========================================")
 
 connection.close()
