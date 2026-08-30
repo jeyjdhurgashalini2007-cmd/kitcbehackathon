@@ -1,0 +1,30 @@
+{
+  "12345": {
+    "name": "John Doe",
+    "password": "password",
+    "courses": [
+      { "title": "Web Development Basics", "marks": 85, "completion": "70%", "grade": "A-" },
+      { "title": "AI for Beginners", "marks": 90, "completion": "50%", "grade": "A" }
+    ],
+    "assignments": [
+      { "title": "Assignment 1: HTML", "due": "Sept 5", "status": "Submitted" },
+      { "title": "Assignment 2: AI Concepts", "due": "Sept 15", "status": "Pending" }
+    ],
+    "attendance": "92%",
+    "grades": "A"
+  },
+  "67890": {
+    "name": "Jane Smith",
+    "password": "secret",
+    "courses": [
+      { "title": "Data Science", "marks": 78, "completion": "60%", "grade": "B+" },
+      { "title": "Cloud Computing", "marks": 88, "completion": "40%", "grade": "A-" }
+    ],
+    "assignments": [
+      { "title": "Assignment 1: Python", "due": "Sept 10", "status": "Submitted" },
+      { "title": "Assignment 2: Cloud Project", "due": "Sept 20", "status": "Pending" }
+    ],
+    "attendance": "88%",
+    "grades": "B+"
+  }
+}
