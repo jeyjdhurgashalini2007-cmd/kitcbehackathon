@@ -36,9 +36,12 @@ function Sidebar() {
           📊 Grades
         </div>
 
-        <div className="px-4 py-3 text-gray-500 cursor-not-allowed">
+        <Link
+          to="/student/progress"
+          className="block px-4 py-3 rounded-lg hover:bg-gray-800"
+        >
           📈 Performance
-        </div>
+        </Link>
 
         <div className="px-4 py-3 text-gray-500 cursor-not-allowed">
           💡 Recommendations

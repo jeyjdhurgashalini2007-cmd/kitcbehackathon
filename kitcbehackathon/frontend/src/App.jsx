@@ -1,6 +1,8 @@
 import React, { useEffect, useState } from "react";
 import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
+
 import StudentDashboard from "./pages/StudentDashboard";
+import StudentProgress from "./pages/StudentProgress";
 
 function AdminDashboard() {
   const [data, setData] = useState(null);
@@ -28,37 +30,41 @@ function AdminDashboard() {
 
   return (
     <div className="min-h-screen p-8">
-      <h1 className="text-4xl font-bold mb-8">Admin Dashboard</h1>
+      <h1 className="mb-8 text-4xl font-bold">Admin Dashboard</h1>
 
-      <div className="grid grid-cols-2 md:grid-cols-3 gap-6">
-        <div className="p-6 rounded-lg shadow bg-white">
+      <div className="grid grid-cols-2 gap-6 md:grid-cols-3">
+        <div className="rounded-lg bg-white p-6 shadow">
           <h2>Total Students</h2>
           <p className="text-3xl font-bold">{data.total_students}</p>
         </div>
 
-        <div className="p-6 rounded-lg shadow bg-white">
+        <div className="rounded-lg bg-white p-6 shadow">
           <h2>Total Teachers</h2>
           <p className="text-3xl font-bold">{data.total_teachers}</p>
         </div>
 
-        <div className="p-6 rounded-lg shadow bg-white">
+        <div className="rounded-lg bg-white p-6 shadow">
           <h2>Total Courses</h2>
           <p className="text-3xl font-bold">{data.total_courses}</p>
         </div>
 
-        <div className="p-6 rounded-lg shadow bg-white">
+        <div className="rounded-lg bg-white p-6 shadow">
           <h2>At-Risk Students</h2>
           <p className="text-3xl font-bold">{data.at_risk_students}</p>
         </div>
 
-        <div className="p-6 rounded-lg shadow bg-white">
+        <div className="rounded-lg bg-white p-6 shadow">
           <h2>Average Attendance</h2>
-          <p className="text-3xl font-bold">{data.average_attendance}%</p>
+          <p className="text-3xl font-bold">
+            {data.average_attendance}%
+          </p>
         </div>
 
-        <div className="p-6 rounded-lg shadow bg-white">
+        <div className="rounded-lg bg-white p-6 shadow">
           <h2>Average Performance</h2>
-          <p className="text-3xl font-bold">{data.average_performance}%</p>
+          <p className="text-3xl font-bold">
+            {data.average_performance}%
+          </p>
         </div>
       </div>
     </div>
@@ -69,31 +75,35 @@ function App() {
   return (
     <BrowserRouter>
       <Routes>
-        <Route path="/" element={<Navigate to="/student/dashboard" />} />
+        {/* Default route */}
+        <Route
+          path="/"
+          element={<Navigate to="/student/dashboard" />}
+        />
 
+        {/* Student Dashboard */}
         <Route
           path="/student/dashboard"
           element={<StudentDashboard />}
         />
 
-        
-        
+        {/* Student Progress */}
+        <Route
+          path="/student/progress"
+          element={<StudentProgress />}
+        />
 
-        
-        
-
-        
-
-        
-
-        
-
+        {/* Admin Dashboard */}
         <Route
           path="/admin/dashboard"
           element={<AdminDashboard />}
         />
 
-        <Route path="*" element={<Navigate to="/student/dashboard" />} />
+        {/* Unknown routes */}
+        <Route
+          path="*"
+          element={<Navigate to="/student/dashboard" />}
+        />
       </Routes>
     </BrowserRouter>
   );
