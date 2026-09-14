@@ -37,7 +37,7 @@ function loginUser() {
 
   if (students[id] && students[id].password === pwd) {
     localStorage.setItem("studentId", id);
-    window.location.href = "dashboard.html";
+    window.location.href = "/student/dashboard";
     return false;
   } else {
     document.getElementById("loginMessage").innerText = "Invalid credentials!";
