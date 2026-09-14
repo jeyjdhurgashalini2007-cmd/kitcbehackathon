@@ -1,25 +1,26 @@
 // Demo student database
 const students = {
   "12345": {
-    name: "John Doe",
-    password: "password",
-    courses: [
-      { title: "Web Development Basics", marks: 85, completion: "70%", grade:"A--" },
-      { title: "AI for Beginners", marks: 90, completion: "50%", grade:"A--" }
-    ],
-    assignments: [
-      { title: "Assignment 1: HTML", due: "Sept 5", status: "Submitted" },
-      { title: "Assignment 2: AI Concepts", due: "Sept 15", status: "Pending" }
-    ],
-    attendance: "92%",
-    grades: "A"
-  },
+  name: "John Doe",
+  password: "password",
+  courses: [
+    { title: "Mathematics", marks: 42, completion: "40%", grade: "F" },
+    { title: "Digital Electronics", marks: 55, completion: "50%", grade: "C" },
+    { title: "Programming", marks: 73, completion: "70%", grade: "B" }
+  ],
+  assignments: [
+    { title: "Assignment 1: Mathematics", due: "Sept 5", status: "Submitted" },
+    { title: "Assignment 2: Digital Electronics", due: "Sept 15", status: "Pending" }
+  ],
+  attendance: "55%",
+  grades: "C"
+},
   "67890": {
     name: "Jane Smith",
     password: "secret",
     courses: [
-      { title: "Data Science", marks: 78, completion: "60%",grade:"A--" },
-      { title: "Cloud Computing", marks: 88, completion: "40%", grade:"A--" }
+      { title: "Data Science", marks: 78, completion: "60%", grade: "A--" },
+      { title: "Cloud Computing", marks: 88, completion: "40%", grade: "A--" }
     ],
     assignments: [
       { title: "Assignment 1: Python", due: "Sept 10", status: "Submitted" },
@@ -27,8 +28,41 @@ const students = {
     ],
     attendance: "88%",
     grades: "B+"
+  },
+
+  "11111": {
+    name: "Alex Kumar",
+    password: "alex123",
+    courses: [
+      { title: "Mathematics", marks: 58, completion: "50%", grade: "C" },
+      { title: "Digital Electronics", marks: 62, completion: "60%", grade: "B" },
+      { title: "Programming", marks: 65, completion: "70%", grade: "B" }
+    ],
+    assignments: [
+      { title: "Assignment 1: Mathematics", due: "Sept 5", status: "Submitted" },
+      { title: "Assignment 2: Digital Electronics", due: "Sept 15", status: "Pending" }
+    ],
+    attendance: "72%",
+    grades: "C+"
+  },
+
+  "22222": {
+    name: "Priya Sharma",
+    password: "priya123",
+    courses: [
+      { title: "Mathematics", marks: 92, completion: "90%", grade: "A+" },
+      { title: "Digital Electronics", marks: 88, completion: "85%", grade: "A" },
+      { title: "Programming", marks: 95, completion: "95%", grade: "A+" }
+    ],
+    assignments: [
+      { title: "Assignment 1: Programming", due: "Sept 5", status: "Submitted" },
+      { title: "Assignment 2: Electronics", due: "Sept 15", status: "Submitted" }
+    ],
+    attendance: "96%",
+    grades: "A+"
   }
 };
+
 
 // Login function
 function loginUser() {
