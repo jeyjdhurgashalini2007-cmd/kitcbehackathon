@@ -178,6 +178,7 @@ const student = {
     ])
   )
 };
+console.log("AI STUDENT DATA:",student);
 
   try {
     const response = await fetch(
@@ -196,18 +197,53 @@ const student = {
     }
 
     const data = await response.json();
+    const statusSection = document.getElementById("aiStatus");
+
+if (statusSection) {
+  statusSection.innerHTML = `
+    <h3>🎯 Student Status</h3>
+    <p><strong>${data.status_summary.status}</strong></p>
+    <p>${data.status_summary.message}</p>
+  `;
+}
 
     aiSection.innerHTML = `
-      <p><strong>Performance Level:</strong> ${data.performance.level}</p>
-      <p><strong>Performance Score:</strong> ${data.performance.score}%</p>
-      <p><strong>Performance Trend:</strong> ${data.performance.trend}</p>
-      <p><strong>Risk Prediction:</strong> ${data.risk.prediction}</p>
-      <p><strong>Risk Level:</strong> ${data.risk.level}</p>
-      <p><strong>Risk Score:</strong> ${data.risk.score}%</p>
-      <p><strong>Weakest Subject:</strong> 
-        ${data.weak_subject.name} (${data.weak_subject.score}%)
-      </p>
+  <p>
+    <strong>Performance Level:</strong>
+    <span class="ai-badge">${data.performance.level}</span>
+  </p>
 
+  <p>
+    <strong>Performance Score:</strong>
+    <span class="ai-score">${data.performance.score}%</span>
+  </p>
+
+  <p>
+    <strong>Performance Trend:</strong>
+    <span class="ai-badge">${data.performance.trend}</span>
+  </p>
+
+  <p>
+    <strong>Risk Prediction:</strong>
+    <span class="ai-badge">${data.risk.prediction}</span>
+  </p>
+
+  <p>
+    <strong>Risk Level:</strong>
+    <span class="ai-risk">${data.risk.level}</span>
+  </p>
+
+  <p>
+    <strong>Risk Score:</strong>
+    <span class="ai-score">${data.risk.score}%</span>
+  </p>
+
+  <p>
+    <strong>Weakest Subject:</strong>
+    <span class="ai-badge">
+      ${data.weak_subject.name} (${data.weak_subject.score}%)
+    </span>
+  </p>
       <h3>💡 Personalized Recommendations</h3>
 
       <ul>

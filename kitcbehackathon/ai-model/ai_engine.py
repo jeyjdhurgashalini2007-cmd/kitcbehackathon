@@ -264,11 +264,47 @@ def analyze_student(student):
         risk,
         weak_subject
     )
-
+    status_summary = generate_status_summary(
+        performance,
+        risk,
+        weak_subject
+    )
     return {
         "student_id": student["student_id"],
         "performance": performance,
         "risk": risk,
         "weak_subject": weak_subject,
-        "recommendations": recommendations
+      
+        "recommendations": recommendations,
+        "status_summary": status_summary
+    }
+
+def generate_status_summary(performance, risk, weak_subject):
+    if risk["level"] == "HIGH":
+        status = "AT-RISK STUDENT"
+        message = (
+            f"The student requires immediate academic attention. "
+            f"{weak_subject['name']} is the weakest subject with a score of "
+            f"{weak_subject['score']}%. Overall performance is "
+            f"{performance['trend'].lower()}."
+        )
+
+    elif risk["level"] == "MEDIUM":
+        status = "NEEDS ATTENTION"
+        message = (
+            f"The student is showing some academic risk. "
+            f"Focus on improving {weak_subject['name']} and maintaining "
+            f"consistent academic performance."
+        )
+
+    else:
+        status = "ON TRACK"
+        message = (
+            "The student is currently performing well. "
+            "Continue the current study routine and maintain consistency."
+        )
+
+    return {
+        "status": status,
+        "message": message
     }
