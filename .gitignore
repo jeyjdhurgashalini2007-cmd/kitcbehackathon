@@ -1,0 +1,15 @@
+# Python
+__pycache__/
+*.py[cod]
+.venv/
+venv/
+env/
+
+# Generated SQLite database
+database/ktcb.db
+
+# Environment variables
+.env
+
+# VS Code
+.vscode/

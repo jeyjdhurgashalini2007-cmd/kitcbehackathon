@@ -1,10 +1,23 @@
-from fastapi import FastAPI
-from pydantic import BaseModel
-from typing import Dict
 import sqlite3
 from pathlib import Path
+from fastapi import FastAPI
+from fastapi.middleware.cors import CORSMiddleware
+from pydantic import BaseModel
+from typing import Dict
 
 app = FastAPI(title="KICET Hackathon Backend")
+
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=[
+        "http://localhost:5173",
+        "http://127.0.0.1:5173",
+    ],
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
+
 BASE_DIR = Path(__file__).resolve().parent.parent
 DB_PATH = BASE_DIR / "database" / "ktcb.db"
 
@@ -14,9 +27,11 @@ def get_db():
     connection.row_factory = sqlite3.Row
     return connection
 
+
 # -----------------------------
 # Admin Dashboard
 # -----------------------------
+
 @app.get("/api/admin/dashboard")
 def get_admin_dashboard():
     db = get_db()
@@ -59,6 +74,12 @@ def get_admin_dashboard():
         "average_attendance": round(average_attendance or 0, 1),
         "average_performance": round(average_performance or 0, 1)
     }
+
+
+# -----------------------------
+# Admin - All Students
+# -----------------------------
+
 @app.get("/api/admin/students")
 def get_all_students():
     db = get_db()
@@ -80,6 +101,7 @@ def get_all_students():
     db.close()
 
     return [dict(student) for student in students]
+
 
 # -----------------------------
 # Admin - Student Details
@@ -124,6 +146,12 @@ def get_student(student_id: str):
         "student": dict(student),
         "subjects": [dict(mark) for mark in marks]
     }
+
+
+# -----------------------------
+# Admin - Teachers
+# -----------------------------
+
 @app.get("/api/admin/teachers")
 def get_all_teachers():
     db = get_db()
@@ -143,6 +171,12 @@ def get_all_teachers():
         "count": len(teachers),
         "teachers": [dict(teacher) for teacher in teachers]
     }
+
+
+# -----------------------------
+# Admin - Courses
+# -----------------------------
+
 @app.get("/api/admin/courses")
 def get_all_courses():
     db = get_db()
@@ -165,6 +199,12 @@ def get_all_courses():
         "count": len(courses),
         "courses": [dict(course) for course in courses]
     }
+
+
+# -----------------------------
+# Admin - At Risk Students
+# -----------------------------
+
 @app.get("/api/admin/reports/at-risk")
 def get_at_risk_students():
     db = get_db()
@@ -191,6 +231,12 @@ def get_at_risk_students():
         "count": len(students),
         "students": [dict(student) for student in students]
     }
+
+
+# -----------------------------
+# Admin - Performance Report
+# -----------------------------
+
 @app.get("/api/admin/reports/performance")
 def get_performance_report():
     db = get_db()
@@ -207,6 +253,12 @@ def get_performance_report():
     db.close()
 
     return dict(summary)
+
+
+# -----------------------------
+# Teacher - Students
+# -----------------------------
+
 @app.get("/api/teacher/{teacher_id}/students")
 def get_teacher_students(teacher_id: str):
     db = get_db()
@@ -236,9 +288,12 @@ def get_teacher_students(teacher_id: str):
         "count": len(students),
         "students": [dict(student) for student in students]
     }
+
+
 # -----------------------------
 # AI Student Analysis
 # -----------------------------
+
 class StudentAnalysisRequest(BaseModel):
     student_id: str
     attendance: float
@@ -251,7 +306,6 @@ class StudentAnalysisRequest(BaseModel):
 @app.post("/api/ai/analyze-student")
 def analyze_student(data: StudentAnalysisRequest):
 
-    # Performance analysis
     performance_score = (
         data.attendance * 0.2
         + data.assignment_completion * 0.2
@@ -272,7 +326,6 @@ def analyze_student(data: StudentAnalysisRequest):
     else:
         trend = "STABLE"
 
-    # Risk prediction
     risk_score = (
         (100 - data.attendance) * 0.35
         + (100 - data.assignment_completion) * 0.25
@@ -289,11 +342,9 @@ def analyze_student(data: StudentAnalysisRequest):
         risk_prediction = "LOW_RISK"
         risk_level = "LOW"
 
-    # Weakest subject
     weak_subject_name = min(data.subjects, key=data.subjects.get)
     weak_subject_score = data.subjects[weak_subject_name]
 
-    # Recommendations
     recommendations = []
 
     if data.attendance < 75:

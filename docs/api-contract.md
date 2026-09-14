@@ -115,3 +115,16 @@ The AI module returns the student's performance analysis, risk prediction, weake
     "Schedule an academic intervention or teacher follow-up."
   ]
 }
+
+
+
+### Development/Test Data
+
+The response above represents the agreed API contract.
+
+During local development, the sample database contains 5 students,
+3 teachers, and 3 courses. Therefore, integration tests will produce
+different statistics from the contract example.
+
+The actual dashboard values will be calculated from the database.
+The at-risk student count will be based on AI risk predictions.

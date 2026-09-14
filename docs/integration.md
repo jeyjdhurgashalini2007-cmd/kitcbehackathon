@@ -69,3 +69,41 @@ The backend should send one student's academic data to the AI module.
     "Chemistry": 47
   }
 }
+
+## Admin Integration Checklist
+
+### Database
+- [x] Student table created
+- [x] Teacher table created
+- [x] Course table created
+- [x] Subject table created
+- [x] Student marks table created
+- [x] Sample data added
+
+### AI
+- [x] AI student analysis implemented
+- [x] Performance analysis implemented
+- [x] Risk detection implemented
+- [x] Weak subject identification implemented
+- [x] Personalized recommendations implemented
+
+### Backend
+- [x] Admin dashboard API defined
+- [x] AI analysis API defined
+- [ ] Connect dashboard statistics to database
+- [ ] Connect AI endpoint to AI module
+- [ ] Calculate at-risk student count
+
+### Frontend
+- [ ] Connect Admin Dashboard to `/api/admin/dashboard`
+- [ ] Display student statistics
+- [ ] Display at-risk students
+- [ ] Display performance statistics
+- [ ] Display AI recommendations
+
+### Integration Testing
+- [ ] Test database → backend
+- [ ] Test backend → AI
+- [ ] Test AI → backend
+- [ ] Test backend → frontend
+- [ ] Test complete Admin Dashboard flow
