@@ -165,3 +165,36 @@ nav ul li a:hover {
 
 .status-submitted { color: green; font-weight: bold; }
 .status-pending { color: orange; font-weight: bold; }
+
+.ai-section {
+  margin: 30px auto;
+  max-width: 1000px;
+  padding: 25px;
+  background: #ffffff;
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+}
+
+.ai-section h2 {
+  margin-bottom: 20px;
+  color: #1e3a8a;
+}
+
+.ai-section p {
+  margin: 10px 0;
+  font-size: 16px;
+}
+
+.ai-section h3 {
+  margin-top: 25px;
+  color: #1e3a8a;
+}
+
+.ai-section ul {
+  margin-top: 10px;
+  padding-left: 25px;
+}
+
+.ai-section li {
+  margin: 8px 0;
+}
