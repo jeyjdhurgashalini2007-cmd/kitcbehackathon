@@ -3,10 +3,12 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Assignments</title>
+  <title>My Assignments</title>
   <link rel="stylesheet" href="style.css">
 </head>
+
 <body>
+
   <nav>
     <ul>
       <li><a href="dashboard.html">Dashboard</a></li>
@@ -14,14 +16,84 @@
       <li><a href="assignments.html">Assignments</a></li>
       <li><a href="profile.html">Profile</a></li>
       <li><a href="#" onclick="logoutUser()">Logout</a></li>
-
     </ul>
   </nav>
 
- <section class="content">
-  <h2>My Assignments</h2>
-  <ul id="assignmentList"></ul>
-</section>
-<script src="script.js"></script>
+  <section class="content">
+
+    <div class="page-header">
+      <div>
+        <h1>📝 My Assignments</h1>
+        <p>Stay organized, track deadlines and monitor your academic submissions.</p>
+      </div>
+    </div>
+
+    <!-- Assignment Overview -->
+    <div class="assignment-overview">
+
+      <div class="overview-card">
+        <div class="overview-icon">📚</div>
+        <div>
+          <h3>Total Assignments</h3>
+          <p id="totalAssignments">--</p>
+        </div>
+      </div>
+
+      <div class="overview-card">
+        <div class="overview-icon">✅</div>
+        <div>
+          <h3>Submitted</h3>
+          <p id="submittedAssignments">--</p>
+        </div>
+      </div>
+
+      <div class="overview-card">
+        <div class="overview-icon">⏳</div>
+        <div>
+          <h3>Pending</h3>
+          <p id="pendingAssignments">--</p>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- Assignment List -->
+    <div class="section-heading">
+      <h2>Assignment Tracker</h2>
+      <p>Review your submission status and upcoming deadlines.</p>
+    </div>
+
+    <div id="assignmentList" class="assignment-grid"></div>
+
+  </section>
+
+  <script src="script.js"></script>
+
+  <script>
+    const loggedStudent =
+      JSON.parse(localStorage.getItem("loggedInStudent"));
+
+    if (loggedStudent && loggedStudent.assignments) {
+
+      const assignments = loggedStudent.assignments;
+
+      const submitted = assignments.filter(
+        assignment =>
+          assignment.status.toLowerCase() === "submitted"
+      ).length;
+
+      const pending = assignments.length - submitted;
+
+      document.getElementById("totalAssignments").textContent =
+        assignments.length;
+
+      document.getElementById("submittedAssignments").textContent =
+        submitted;
+
+      document.getElementById("pendingAssignments").textContent =
+        pending;
+    }
+  </script>
+
 </body>
 </html>

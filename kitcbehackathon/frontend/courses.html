@@ -3,10 +3,12 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Courses</title>
+  <title>My Courses</title>
   <link rel="stylesheet" href="style.css">
 </head>
+
 <body>
+
   <nav>
     <ul>
       <li><a href="dashboard.html">Dashboard</a></li>
@@ -14,15 +16,85 @@
       <li><a href="assignments.html">Assignments</a></li>
       <li><a href="profile.html">Profile</a></li>
       <li><a href="#" onclick="logoutUser()">Logout</a></li>
-
     </ul>
   </nav>
 
   <section class="content">
-    <h2>My Courses</h2>
-    <ul id="courseList"></ul>
+
+    <div class="page-header">
+      <div>
+        <h1>📚 My Courses</h1>
+        <p>Track your enrolled courses, academic progress and subject performance.</p>
+      </div>
+    </div>
+
+    <!-- Course Overview -->
+    <div class="course-overview">
+
+      <div class="overview-card">
+        <div class="overview-icon">📘</div>
+        <div>
+          <h3>Enrolled Courses</h3>
+          <p>3 Active Courses</p>
+        </div>
+      </div>
+
+      <div class="overview-card">
+        <div class="overview-icon">📊</div>
+        <div>
+          <h3>Average Performance</h3>
+          <p id="courseAverage">--%</p>
+        </div>
+      </div>
+
+      <div class="overview-card">
+        <div class="overview-icon">🎯</div>
+        <div>
+          <h3>Overall Progress</h3>
+          <p id="courseProgress">--%</p>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- Course List -->
+    <div class="section-heading">
+      <h2>Enrolled Courses</h2>
+      <p>Your current subjects and academic progress.</p>
+    </div>
+
+    <div id="courseList" class="course-grid"></div>
+
   </section>
 
   <script src="script.js"></script>
+
+  <script>
+    // Additional visual information for the course page.
+    const loggedStudent = JSON.parse(localStorage.getItem("loggedInStudent"));
+
+    if (loggedStudent && loggedStudent.courses) {
+
+      const courses = loggedStudent.courses;
+
+      const averageMarks =
+        courses.reduce((sum, course) => sum + Number(course.marks), 0)
+        / courses.length;
+
+      const averageProgress =
+        courses.reduce(
+          (sum, course) =>
+            sum + parseFloat(course.completion),
+          0
+        ) / courses.length;
+
+      document.getElementById("courseAverage").textContent =
+        Math.round(averageMarks) + "%";
+
+      document.getElementById("courseProgress").textContent =
+        Math.round(averageProgress) + "%";
+    }
+  </script>
+
 </body>
 </html>

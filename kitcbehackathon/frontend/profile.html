@@ -3,10 +3,12 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Profile</title>
+  <title>Student Profile</title>
   <link rel="stylesheet" href="style.css">
 </head>
+
 <body>
+
   <nav>
     <ul>
       <li><a href="dashboard.html">Dashboard</a></li>
@@ -14,17 +16,145 @@
       <li><a href="assignments.html">Assignments</a></li>
       <li><a href="profile.html">Profile</a></li>
       <li><a href="#" onclick="logoutUser()">Logout</a></li>
-
     </ul>
   </nav>
 
- <section class="content">
-  <h2>Student Profile</h2>
-  <div id="profileDetails"></div>
-  <table id="courseSummary"></table>
+  <section class="content">
+
+    <div class="page-header">
+      <div>
+        <h1>👤 Student Profile</h1>
+        <p>View your academic information, performance and enrolled courses.</p>
+      </div>
+    </div>
+
+    <!-- Profile Information -->
+    <div class="profile-card">
+
+      <div class="profile-avatar">
+        👨‍🎓
+      </div>
+
+      <div class="profile-main">
+        <h2 id="profileName">Student</h2>
+        <p class="profile-role">🎓 Active Student</p>
+
+        <div id="profileDetails" class="profile-details"></div>
+      </div>
+
+    </div>
+
+    <!-- Academic Overview -->
+    <div class="section-heading">
+      <h2>📊 Academic Overview</h2>
+      <p>Your current academic performance across enrolled subjects.</p>
+    </div>
+
+    <div class="academic-overview">
+
+      <div class="academic-card">
+        <span class="academic-icon">📚</span>
+        <h3>Courses</h3>
+        <strong id="profileCourseCount">--</strong>
+        <p>Active courses</p>
+      </div>
+
+      <div class="academic-card">
+        <span class="academic-icon">📈</span>
+        <h3>Average Marks</h3>
+        <strong id="profileAverageMarks">--%</strong>
+        <p>Current average</p>
+      </div>
+
+      <div class="academic-card">
+        <span class="academic-icon">🕐</span>
+        <h3>Attendance</h3>
+        <strong id="profileAttendance">--%</strong>
+        <p>Overall attendance</p>
+      </div>
+
+      <div class="academic-card">
+        <span class="academic-icon">🏆</span>
+        <h3>Grade</h3>
+        <strong id="profileGrade">--</strong>
+        <p>Overall grade</p>
+      </div>
+
+    </div>
+
+    <section class="section-heading">
+  <h2>📈 Academic Performance Trend</h2>
+  <p>Track your performance growth across assessments</p>
 </section>
 
-<script src="script.js"></script>
+<section class="performance-chart-card">
+  <div class="chart-header">
+    <div>
+      <h3>Performance Growth</h3>
+      <p>Your academic progress over recent assessments</p>
+    </div>
+    <div class="growth-badge">
+      ↗ Improving
+    </div>
+  </div>
+
+  <div class="chart-container">
+    <canvas id="performanceChart"></canvas>
+  </div>
+</section>
+
+    <!-- Course Performance -->
+    <div class="section-heading">
+      <h2>📖 Course Performance</h2>
+      <p>Subject-wise marks, grades and completion progress.</p>
+    </div>
+
+    <div class="table-container">
+      <table id="courseSummary">
+      </table>
+    </div>
+
+  </section>
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <script src="script.js"></script>
+
+  <script>
+    const loggedStudent =
+      JSON.parse(localStorage.getItem("loggedInStudent"));
+
+    if (loggedStudent) {
+
+      // Student name
+      const profileName =
+        document.getElementById("profileName");
+
+      if (profileName && loggedStudent.name) {
+        profileName.textContent = loggedStudent.name;
+      }
+
+      // Academic information
+      const courses = loggedStudent.courses || [];
+
+      const averageMarks = courses.length
+        ? courses.reduce(
+            (sum, course) => sum + Number(course.marks),
+            0
+          ) / courses.length
+        : 0;
+
+      document.getElementById("profileCourseCount")
+        .textContent = courses.length;
+
+      document.getElementById("profileAverageMarks")
+        .textContent = Math.round(averageMarks) + "%";
+
+      document.getElementById("profileAttendance")
+        .textContent = loggedStudent.attendance || "--";
+
+      document.getElementById("profileGrade")
+        .textContent = loggedStudent.grades || "--";
+    }
+  </script>
+
 </body>
 </html>
-
