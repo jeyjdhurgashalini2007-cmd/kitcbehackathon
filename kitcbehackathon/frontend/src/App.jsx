@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 import StudentDashboard from "./pages/StudentDashboard";
+import StudentProgress from "./pages/StudentProgress";
 
 function AdminDashboard() {
   const [data, setData] = useState(null);
@@ -75,7 +76,10 @@ function App() {
           path="/student/dashboard"
           element={<StudentDashboard />}
         />
-
+        <Route
+  path="/student/progress"
+  element={<StudentProgress />}
+/>
         
         
 
